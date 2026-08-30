@@ -1,0 +1,43 @@
+services:
+  kitchen-display-system:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-}
+    container_name: kitchen_display_system
+    restart: unless-stopped
+    expose:
+      - "3002"
+    ports:
+      - "3002:3002"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:3002/').then((r) => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    networks:
+      - dokploy-network
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.kds.rule=Host(`kds.codevio.com`) || Host(`kitchen.codevio.com`)
+      - traefik.http.routers.kds.entrypoints=websecure
+      - traefik.http.routers.kds.tls.certResolver=letsencrypt
+      - traefik.http.routers.kds-http.rule=Host(`kds.codevio.com`) || Host(`kitchen.codevio.com`)
+      - traefik.http.routers.kds-http.entrypoints=web
+      - traefik.http.routers.kds-http.middlewares=redirect-to-https
+      - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+      - traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true
+      - traefik.docker.network=dokploy-network
+      - traefik.http.services.kds.loadbalancer.server.port=3002
+
+networks:
+  dokploy-network:
+    external: true
