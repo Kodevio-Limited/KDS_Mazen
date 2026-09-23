@@ -123,7 +123,7 @@ export default function OrderCard({ order, settings, onUpdateStatus }: OrderCard
       </div>
 
       {/* Bottom Section: Status Action Button */}
-      <div className="mt-6 pt-2">
+      <div className="mt-auto pt-6">
         {isPreparing && (
           <button
             onClick={() => onUpdateStatus(order.id, 'READY')}

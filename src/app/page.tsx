@@ -173,7 +173,7 @@ export default function KitchenDisplayPage() {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 items-start">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 items-stretch">
             {filteredOrders.map((order) => (
               <OrderCard
                 key={order.id}
