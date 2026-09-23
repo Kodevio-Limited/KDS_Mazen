@@ -53,13 +53,13 @@ export default function QuickSettingsDrawer({
             <div className="flex items-center justify-between pb-8">
               <button
                 onClick={onClose}
-                className="w-12 h-12 rounded-full bg-white hover:bg-gray-100 border border-gray-200 flex items-center justify-center text-[#2D2F33] transition-all transform hover:scale-105"
+                className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-[#2D2F33] transition-all hover:bg-gray-100"
                 title="Close"
               >
                 <ArrowLeft size={24} />
               </button>
 
-              <h2 className="text-[33px] font-bold text-[#000000] tracking-tight">
+              <h2 className="text-[33px] font-medium tracking-tight text-[#000000]">
                 Quick Settings
               </h2>
 
@@ -67,11 +67,11 @@ export default function QuickSettingsDrawer({
             </div>
 
             {/* White Settings Card */}
-            <div className="bg-white rounded-[13px] p-6 md:p-8 shadow-xs space-y-8 mt-4 border border-gray-100">
+            <div className="mt-4 space-y-8 rounded-[13px] border border-gray-100 bg-white p-6 shadow-xs md:p-8">
               {/* Setting 1: New Order Sound */}
               <div className="flex items-center justify-between gap-4">
                 <div className="space-y-1">
-                  <h3 className="text-[19px] font-bold text-[#000000]">
+                  <h3 className="text-[19px] font-medium text-[#000000]">
                     New Order Sound
                   </h3>
                   <p className="text-[13px] text-[#989898]">
@@ -89,24 +89,22 @@ export default function QuickSettingsDrawer({
                       newOrderSound: !localSettings.newOrderSound,
                     })
                   }
-                  className={`relative inline-flex h-[28px] w-[52px] flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
+                  className={`relative inline-flex h-[24px] w-[49px] flex-shrink-0 cursor-pointer rounded-full transition-colors duration-200 ease-in-out focus:outline-none ${
                     localSettings.newOrderSound ? 'bg-[#2CCE4F]' : 'bg-[#D1D5DB]'
                   }`}
                 >
                   <span
-                    className={`pointer-events-none inline-block h-[24px] w-[24px] transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out ${
-                      localSettings.newOrderSound ? 'translate-x-[24px]' : 'translate-x-0'
+                    className={`pointer-events-none inline-block h-[20px] w-[20px] transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out ${
+                      localSettings.newOrderSound ? 'translate-x-[25px] translate-y-[2px]' : 'translate-x-[2px] translate-y-[2px]'
                     }`}
                   />
                 </button>
               </div>
 
-              <div className="border-b border-gray-100" />
-
               {/* Setting 2: Show Order Notes */}
               <div className="flex items-center justify-between gap-4">
                 <div className="space-y-1">
-                  <h3 className="text-[19px] font-bold text-[#000000]">
+                  <h3 className="text-[19px] font-medium text-[#000000]">
                     Show Order Notes
                   </h3>
                   <p className="text-[13px] text-[#989898]">
@@ -124,24 +122,22 @@ export default function QuickSettingsDrawer({
                       showOrderNotes: !localSettings.showOrderNotes,
                     })
                   }
-                  className={`relative inline-flex h-[28px] w-[52px] flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
+                  className={`relative inline-flex h-[24px] w-[49px] flex-shrink-0 cursor-pointer rounded-full transition-colors duration-200 ease-in-out focus:outline-none ${
                     localSettings.showOrderNotes ? 'bg-[#2CCE4F]' : 'bg-[#D1D5DB]'
                   }`}
                 >
                   <span
-                    className={`pointer-events-none inline-block h-[24px] w-[24px] transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out ${
-                      localSettings.showOrderNotes ? 'translate-x-[24px]' : 'translate-x-0'
+                    className={`pointer-events-none inline-block h-[20px] w-[20px] transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out ${
+                      localSettings.showOrderNotes ? 'translate-x-[25px] translate-y-[2px]' : 'translate-x-[2px] translate-y-[2px]'
                     }`}
                   />
                 </button>
               </div>
 
-              <div className="border-b border-gray-100" />
-
               {/* Setting 3: Show Item Modifiers */}
               <div className="flex items-center justify-between gap-4">
                 <div className="space-y-1">
-                  <h3 className="text-[19px] font-bold text-[#000000]">
+                  <h3 className="text-[19px] font-medium text-[#000000]">
                     Show Item Modifiers
                   </h3>
                   <p className="text-[13px] text-[#989898]">
@@ -159,13 +155,13 @@ export default function QuickSettingsDrawer({
                       showItemModifiers: !localSettings.showItemModifiers,
                     })
                   }
-                  className={`relative inline-flex h-[28px] w-[52px] flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
+                  className={`relative inline-flex h-[24px] w-[49px] flex-shrink-0 cursor-pointer rounded-full transition-colors duration-200 ease-in-out focus:outline-none ${
                     localSettings.showItemModifiers ? 'bg-[#2CCE4F]' : 'bg-[#D1D5DB]'
                   }`}
                 >
                   <span
-                    className={`pointer-events-none inline-block h-[24px] w-[24px] transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out ${
-                      localSettings.showItemModifiers ? 'translate-x-[24px]' : 'translate-x-0'
+                    className={`pointer-events-none inline-block h-[20px] w-[20px] transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out ${
+                      localSettings.showItemModifiers ? 'translate-x-[25px] translate-y-[2px]' : 'translate-x-[2px] translate-y-[2px]'
                     }`}
                   />
                 </button>
@@ -177,7 +173,7 @@ export default function QuickSettingsDrawer({
           <div className="pt-8">
             <button
               onClick={handleSave}
-              className="w-full h-[59px] bg-[#026F4F] hover:bg-[#01533B] active:scale-[0.99] text-white font-medium text-[19px] rounded-full shadow-[0px_4px_16.3px_11px_rgba(0,0,0,0.12)] transition-all flex items-center justify-center gap-2"
+              className="w-full h-[59px] bg-[#026F4F] hover:bg-[#01533B] active:scale-[0.99] text-white font-satoshi font-medium text-[19px] rounded-full shadow-[0px_4px_16.3px_11px_rgba(0,0,0,0.12)] transition-all flex items-center justify-center gap-2"
             >
               {savedNotification ? (
                 <>

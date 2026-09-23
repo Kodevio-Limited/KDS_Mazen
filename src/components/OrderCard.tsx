@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Utensils, Clock, Check, ChefHat } from 'lucide-react';
+import { ReceiptText, Clock } from 'lucide-react';
 import { KitchenOrder, QuickSettings } from '../types/kds';
 
 interface OrderCardProps {
@@ -31,16 +31,7 @@ export default function OrderCard({ order, settings, onUpdateStatus }: OrderCard
   };
 
   const getTypeBadgeStyles = () => {
-    switch (order.type) {
-      case 'DELIVERY':
-        return 'bg-[#F2F2F2] border-[#B9B9B9] text-[#000000]';
-      case 'DINE IN':
-        return 'bg-[#EBF5FF] border-[#93C5FD] text-[#1E40AF]';
-      case 'TAKEAWAY':
-        return 'bg-[#FEF3C7] border-[#FCD34D] text-[#92400E]';
-      default:
-        return 'bg-[#F2F2F2] border-[#B9B9B9] text-[#000000]';
-    }
+    return 'bg-[#F2F2F2] border-[#B9B9B9] text-[#000000]';
   };
 
   return (
@@ -85,19 +76,19 @@ export default function OrderCard({ order, settings, onUpdateStatus }: OrderCard
 
                   {/* Details */}
                   <div className="flex flex-col gap-1.5 pt-0.5">
-                    <h4 className="text-[19px] font-semibold text-[#2D2F33] leading-snug">
+                    <h4 className="text-[20px] font-medium leading-snug text-[#2D2F33]">
                       {item.name}
                     </h4>
 
                     {/* Modifiers */}
                     {settings.showItemModifiers && item.modifiers && item.modifiers.length > 0 && (
-                      <div className="flex flex-wrap items-center gap-2 mt-0.5">
+                      <div className="mt-0.5 flex flex-wrap items-center gap-2">
                         {item.modifiers.map((mod, i) => (
                           <span
                             key={i}
-                            className="text-[13px] text-[#686868] font-medium inline-flex items-center gap-0.5 bg-gray-50 px-2 py-0.5 rounded-md border border-gray-200/60"
+                            className="inline-flex items-center gap-0.5 text-[15px] font-medium text-[#989898]"
                           >
-                            <span className="text-[#2DC35F] font-bold text-sm">+</span>
+                            <span className="text-[18px] font-normal text-[#2DC35F]">+</span>
                             {mod}
                           </span>
                         ))}
@@ -106,8 +97,8 @@ export default function OrderCard({ order, settings, onUpdateStatus }: OrderCard
 
                     {/* Special Instructions Note */}
                     {settings.showOrderNotes && item.notes && (
-                      <div className="flex items-center gap-1.5 text-[#026F4F] italic text-[13px] font-medium mt-1">
-                        <Utensils size={14} className="flex-shrink-0" />
+                      <div className="mt-1 flex items-center gap-1.5 text-[13px] font-medium italic text-[#026F4F]">
+                        <ReceiptText size={20} className="flex-shrink-0" />
                         <span>{item.notes}</span>
                       </div>
                     )}
@@ -115,8 +106,8 @@ export default function OrderCard({ order, settings, onUpdateStatus }: OrderCard
                 </div>
 
                 {/* Right: Quantity */}
-                <div className="text-right flex-shrink-0 pt-0.5">
-                  <span className="text-[18px] font-bold text-[#026F4F]">
+                <div className="flex-shrink-0 pt-0.5 text-right">
+                  <span className="text-[18.7px] font-semibold text-[#026F4F]">
                     Qty :{item.quantity}
                   </span>
                 </div>
@@ -138,7 +129,6 @@ export default function OrderCard({ order, settings, onUpdateStatus }: OrderCard
             onClick={() => onUpdateStatus(order.id, 'READY')}
             className="w-full h-[54px] bg-[#F97316] hover:bg-[#ea580c] active:scale-[0.98] text-white font-medium text-[16px] rounded-full shadow-[0px_4px_16px_rgba(249,115,22,0.3)] transition-all flex items-center justify-center gap-2"
           >
-            <ChefHat size={20} />
             <span>Mark Ready</span>
           </button>
         )}
@@ -148,14 +138,12 @@ export default function OrderCard({ order, settings, onUpdateStatus }: OrderCard
             onClick={() => onUpdateStatus(order.id, 'COMPLETED')}
             className="w-full h-[54px] bg-[#16A34A] hover:bg-[#15803d] active:scale-[0.98] text-white font-medium text-[16px] rounded-full shadow-[0px_4px_16px_rgba(22,163,74,0.3)] transition-all flex items-center justify-center gap-2"
           >
-            <Check size={20} />
             <span>Complete Order</span>
           </button>
         )}
 
         {isCompleted && (
           <div className="w-full h-[54px] bg-gray-100 text-gray-400 font-medium text-[16px] rounded-full flex items-center justify-center gap-2 border border-gray-200">
-            <Check size={20} className="text-gray-400" />
             <span>Completed</span>
           </div>
         )}

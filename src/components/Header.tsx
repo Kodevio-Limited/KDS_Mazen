@@ -2,8 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
-import { ChevronDown, Settings, Clock, CheckCircle2, AlertCircle } from 'lucide-react';
-import { OrderType } from '../types/kds';
+import { ChevronDown, Settings } from 'lucide-react';
 
 interface HeaderProps {
   activeCount: number;
@@ -59,7 +58,7 @@ export default function Header({
             priority
           />
         </div>
-        <div className="flex items-center gap-2 bg-[#FFDBDB] text-[#FF1F1F] px-3.5 py-1.5 rounded-full font-medium text-sm">
+        <div className="flex items-center gap-2 rounded-full bg-[#FFDBDB] px-3.5 py-1.5 text-[16px] font-medium text-[#FF1F1F]">
           <span className="relative flex h-2.5 w-2.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF1F1F] opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#FF1F1F]"></span>
@@ -69,29 +68,25 @@ export default function Header({
       </div>
 
       {/* Center: Live Stats */}
-      <div className="hidden lg:flex items-center gap-12 bg-[#F8F9FA] px-8 py-2.5 rounded-2xl border border-gray-100">
+      <div className="hidden items-center gap-12 px-8 py-2.5 lg:flex">
         <div className="flex items-center gap-3">
-          <span className="text-[#989898] text-[17px] font-normal">Delayed</span>
-          <span className="text-[#000000] text-[22px] font-semibold flex items-center gap-1.5">
-            {delayedCount}
+          <span className="text-[21px] font-normal text-[#989898]">Avg Prep</span>
+          <span className="text-[25px] font-medium text-black">
+            {avgPrepTime}
           </span>
         </div>
 
-        <div className="w-[1px] h-6 bg-gray-200" />
-
         <div className="flex items-center gap-3">
-          <span className="text-[#989898] text-[17px] font-normal">Completed</span>
-          <span className="text-[#000000] text-[22px] font-semibold">
+          <span className="text-[21px] font-normal text-[#989898]">Completed</span>
+          <span className="text-[25px] font-medium text-black">
             {completedCount}
           </span>
         </div>
 
-        <div className="w-[1px] h-6 bg-gray-200" />
-
         <div className="flex items-center gap-3">
-          <span className="text-[#989898] text-[17px] font-normal">Avg Prep</span>
-          <span className="text-[#000000] text-[22px] font-semibold">
-            {avgPrepTime}
+          <span className="text-[21px] font-normal text-[#989898]">Delayed</span>
+          <span className="flex items-center gap-1.5 text-[25px] font-medium text-black">
+            {delayedCount}
           </span>
         </div>
       </div>
