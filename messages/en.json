@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "title": "Kitchen Display System (KDS) | Restaurant Ecosystem",
+    "description": "Real-time kitchen order tickets and management system"
+  },
+  "languageToggle": {
+    "english": "English",
+    "arabic": "العربية",
+    "switchToAr": "Switch to Arabic",
+    "switchToEn": "Switch to English"
+  },
+  "header": {
+    "logoAlt": "Restaurant Ecosystem",
+    "activeOrders": "{count} Active Orders",
+    "avgPrep": "Avg Prep",
+    "completed": "Completed",
+    "delayed": "Delayed",
+    "prepTime": "{min}m {sec}s",
+    "quickSettings": "Quick Settings",
+    "filters": {
+      "allOrders": "All Orders",
+      "dineIn": "Dine In",
+      "delivery": "Delivery",
+      "takeaway": "Takeaway",
+      "delayed": "Delayed",
+      "completed": "Completed"
+    }
+  },
+  "orderCard": {
+    "qty": "Qty: {qty}",
+    "markReady": "Mark Ready",
+    "completeOrder": "Complete Order",
+    "completed": "Completed",
+    "types": {
+      "DELIVERY": "Delivery",
+      "DINE IN": "Dine In",
+      "TAKEAWAY": "Takeaway"
+    },
+    "statuses": {
+      "PREPARING": "Preparing",
+      "READY": "Ready",
+      "COMPLETED": "Completed"
+    }
+  },
+  "emptyState": {
+    "title": "No orders in \"{filter}\"",
+    "subtitle": "All tickets for this filter have been completed or there are currently no pending kitchen orders.",
+    "showAll": "Show All Active Orders"
+  },
+  "demoButton": "Simulate New Ticket",
+  "settings": {
+    "title": "Quick Settings",
+    "close": "Close",
+    "saveChanges": "Save Changes",
+    "saved": "Saved Successfully",
+    "language": {
+      "label": "Language",
+      "desc": "Switch interface language"
+    },
+    "newOrderSound": {
+      "label": "New Order Sound",
+      "desc": "Play tone for new tickets"
+    },
+    "showOrderNotes": {
+      "label": "Show Order Notes",
+      "desc": "Display customer requests"
+    },
+    "showItemModifiers": {
+      "label": "Show Item Modifiers",
+      "desc": "e.g. Mayo, Extra Chili"
+    }
+  }
+}

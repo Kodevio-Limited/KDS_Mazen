@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "title": "شاشة عرض المطبخ (KDS) | نظام المطاعم",
+    "description": "نظام تذاكر وإدارة طلبات المطبخ في الوقت الفعلي"
+  },
+  "languageToggle": {
+    "english": "English",
+    "arabic": "العربية",
+    "switchToAr": "التبديل إلى العربية",
+    "switchToEn": "Switch to English"
+  },
+  "header": {
+    "logoAlt": "نظام المطاعم",
+    "activeOrders": "{count} طلب نشط",
+    "avgPrep": "متوسط التحضير",
+    "completed": "مكتمل",
+    "delayed": "متأخر",
+    "prepTime": "{min} د {sec} ث",
+    "quickSettings": "الإعدادات السريعة",
+    "filters": {
+      "allOrders": "جميع الطلبات",
+      "dineIn": "جلوس",
+      "delivery": "توصيل",
+      "takeaway": "وجبة جاهزة",
+      "delayed": "متأخر",
+      "completed": "مكتمل"
+    }
+  },
+  "orderCard": {
+    "qty": "الكمية: {qty}",
+    "markReady": "تحديد جاهز",
+    "completeOrder": "إتمام الطلب",
+    "completed": "مكتمل",
+    "types": {
+      "DELIVERY": "توصيل",
+      "DINE IN": "جلوس",
+      "TAKEAWAY": "وجبة جاهزة"
+    },
+    "statuses": {
+      "PREPARING": "قيد التحضير",
+      "READY": "جاهز",
+      "COMPLETED": "مكتمل"
+    }
+  },
+  "emptyState": {
+    "title": "لا توجد طلبات في \"{filter}\"",
+    "subtitle": "تم إكمال جميع التذاكر لهذا المرشح أو لا توجد طلبات مطبخ معلقة حالياً.",
+    "showAll": "عرض جميع الطلبات النشطة"
+  },
+  "demoButton": "محاكاة تذكرة جديدة",
+  "settings": {
+    "title": "الإعدادات السريعة",
+    "close": "إغلاق",
+    "saveChanges": "حفظ التغييرات",
+    "saved": "تم الحفظ بنجاح",
+    "language": {
+      "label": "اللغة",
+      "desc": "تبديل لغة الواجهة"
+    },
+    "newOrderSound": {
+      "label": "صوت الطلب الجديد",
+      "desc": "تشغيل نغمة للتذاكر الجديدة"
+    },
+    "showOrderNotes": {
+      "label": "عرض ملاحظات الطلب",
+      "desc": "عرض طلبات العملاء"
+    },
+    "showItemModifiers": {
+      "label": "عرض إضافات العناصر",
+      "desc": "مثل: مايونيز، شيلي إضافي"
+    }
+  }
+}
