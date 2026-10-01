@@ -65,6 +65,18 @@ export default function KitchenDisplayPage() {
     playChime();
   };
 
+  // New tickets must be accepted before preparation starts (Bug-56).
+  const handleAcceptOrder = (orderId: string) => {
+    setOrders((prev) =>
+      prev.map((ord) => (ord.id === orderId ? { ...ord, status: 'PREPARING' } : ord)),
+    );
+    playChime();
+  };
+
+  const handleRejectOrder = (orderId: string) => {
+    setOrders((prev) => prev.filter((ord) => ord.id !== orderId));
+  };
+
   const filteredOrders = orders.filter((order) => {
     if (selectedFilter === 'All Orders')  return order.status !== 'COMPLETED';
     if (selectedFilter === 'Delayed')     return order.isDelayed && order.status !== 'COMPLETED';
@@ -100,7 +112,7 @@ export default function KitchenDisplayPage() {
       type: isDineIn ? 'DINE IN' : 'DELIVERY',
       tableNumber: isDineIn ? 'Table 02' : undefined,
       tableNumber_ar: isDineIn ? 'طاولة 02' : undefined,
-      status: 'PREPARING',
+      status: 'PENDING',
       elapsedMinutes: 0,
       elapsedSeconds: 0,
       isDelayed: false,
@@ -153,13 +165,15 @@ export default function KitchenDisplayPage() {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 items-stretch">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 min-[1800px]:grid-cols-5 gap-3 items-stretch">
             {filteredOrders.map((order) => (
               <OrderCard
                 key={order.id}
                 order={order}
                 settings={settings}
                 onUpdateStatus={handleUpdateStatus}
+                onAcceptOrder={handleAcceptOrder}
+                onRejectOrder={handleRejectOrder}
               />
             ))}
           </div>

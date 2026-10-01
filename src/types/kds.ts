@@ -1,6 +1,6 @@
 export type OrderType = 'DELIVERY' | 'DINE IN' | 'TAKEAWAY';
 
-export type OrderStatus = 'PREPARING' | 'READY' | 'COMPLETED';
+export type OrderStatus = 'PENDING' | 'PREPARING' | 'READY' | 'COMPLETED';
 
 export interface OrderItem {
   id: string;

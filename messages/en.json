@@ -27,20 +27,24 @@
     }
   },
   "orderCard": {
-    "qty": "Qty: {qty}",
-    "markReady": "Mark Ready",
-    "completeOrder": "Complete Order",
-    "completed": "Completed",
+ "qty": "Qty: {qty}",
+ "markReady": "Mark Ready",
+ "completeOrder": "Complete Order",
+ "completed": "Completed",
+ "accept": "Accept",
+ "reject": "Reject",
+ "newTicket": "New",
     "types": {
       "DELIVERY": "Delivery",
       "DINE IN": "Dine In",
       "TAKEAWAY": "Takeaway"
     },
-    "statuses": {
-      "PREPARING": "Preparing",
-      "READY": "Ready",
-      "COMPLETED": "Completed"
-    }
+ "statuses": {
+  "PENDING": "Pending",
+  "PREPARING": "Preparing",
+  "READY": "Ready",
+  "COMPLETED": "Completed"
+ }
   },
   "emptyState": {
     "title": "No orders in \"{filter}\"",

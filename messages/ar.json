@@ -27,20 +27,24 @@
     }
   },
   "orderCard": {
-    "qty": "الكمية: {qty}",
-    "markReady": "تحديد جاهز",
-    "completeOrder": "إتمام الطلب",
-    "completed": "مكتمل",
+ "qty": "الكمية: {qty}",
+ "markReady": "تحديد جاهز",
+ "completeOrder": "إتمام الطلب",
+ "completed": "مكتمل",
+ "accept": "قبول",
+ "reject": "رفض",
+ "newTicket": "جديد",
     "types": {
       "DELIVERY": "توصيل",
       "DINE IN": "جلوس",
       "TAKEAWAY": "وجبة جاهزة"
     },
-    "statuses": {
-      "PREPARING": "قيد التحضير",
-      "READY": "جاهز",
-      "COMPLETED": "مكتمل"
-    }
+ "statuses": {
+  "PENDING": "بانتظار القبول",
+  "PREPARING": "قيد التحضير",
+  "READY": "جاهز",
+  "COMPLETED": "مكتمل"
+ }
   },
   "emptyState": {
     "title": "لا توجد طلبات في \"{filter}\"",
