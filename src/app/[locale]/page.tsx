@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import Header from '../../components/Header';
 import OrderCard from '../../components/OrderCard';
 import QuickSettingsDrawer from '../../components/QuickSettingsDrawer';
+import { useQueryModal } from '../../lib/use-query-modal';
 import { initialOrders } from '../../data/mockOrders';
 import { KitchenOrder, QuickSettings } from '../../types/kds';
 import { UtensilsCrossed, PlusCircle } from 'lucide-react';
@@ -13,7 +14,8 @@ export default function KitchenDisplayPage() {
   const t = useTranslations();
   const [orders, setOrders] = useState<KitchenOrder[]>(initialOrders);
   const [selectedFilter, setSelectedFilter] = useState('All Orders');
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  // Query-driven settings drawer: ?modal=settings
+  const [settingsOpen, setSettingsOpen] = useQueryModal('settings');
   const [settings, setSettings] = useState<QuickSettings>({
     newOrderSound: true,
     showOrderNotes: true,
@@ -142,7 +144,7 @@ export default function KitchenDisplayPage() {
         avgPrepTime={avgPrepTime}
         selectedFilter={selectedFilter}
         onFilterChange={setSelectedFilter}
-        onOpenSettings={() => setIsSettingsOpen(true)}
+        onOpenSettings={() => setSettingsOpen(true)}
       />
 
       <main className="flex-1 p-4 sm:p-6 md:p-10 max-w-[1920px] mx-auto w-full">
@@ -193,8 +195,8 @@ export default function KitchenDisplayPage() {
       </div>
 
       <QuickSettingsDrawer
-        isOpen={isSettingsOpen}
-        onClose={() => setIsSettingsOpen(false)}
+        isOpen={settingsOpen}
+        onClose={() => setSettingsOpen(false)}
         settings={settings}
         onSaveSettings={setSettings}
       />
