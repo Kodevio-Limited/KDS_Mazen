@@ -48,10 +48,10 @@ export default function Header({
   const displayLabel = selectedLabel ? t(`filters.${selectedLabel.key}`) : selectedFilter;
 
   return (
-    <header className="w-full bg-white rounded-b-[12px] shadow-xs px-6 md:px-10 lg:px-12 py-4 sm:py-5 flex items-center justify-between gap-4 border-b border-gray-100 sticky top-0 z-30 min-h-[90px] lg:min-h-[110px]">
-      {/* Left: Logo & Active Orders Badge Matching Figma Frame 2147226421 */}
-      <div className="flex items-center gap-4 sm:gap-6 shrink-0">
-        <div className="relative w-[120px] sm:w-[131px] h-[35px] sm:h-[38px] shrink-0">
+    <header className="w-full bg-white rounded-b-[12px] shadow-xs px-6 md:px-10 lg:px-12 py-4 flex items-center justify-between gap-4 border-b border-gray-100 sticky top-0 z-30 min-h-[110px] xl:min-h-[138px]">
+      {/* Left: Logo & Active Orders Badge (Stacked Vertically Matching Figma Frame 2147226421) */}
+      <div className="flex flex-col items-start gap-2 shrink-0">
+        <div className="relative w-[125px] sm:w-[131px] h-[35px] sm:h-[38px] shrink-0">
           <Image
             src="/images/logo-69e842.png"
             alt={t('logoAlt')}
@@ -60,16 +60,16 @@ export default function Header({
             priority
           />
         </div>
-        <div className="flex items-center gap-2 rounded-full bg-[#FFDBDB] px-4 py-1.5 h-[32px] shrink-0">
+        <div className="flex items-center gap-2 rounded-full bg-[#FFDBDB] px-3.5 py-1 h-[32px] shrink-0">
           <span className="w-[9px] h-[9px] rounded-full bg-[#FF1E1E] shrink-0" />
-          <span className="text-[15px] sm:text-[16px] font-medium text-[#FF1E1E] whitespace-nowrap">
+          <span className="text-[14px] sm:text-[15px] font-medium text-[#FF1E1E] whitespace-nowrap">
             {t('activeOrders', { count: activeCount })}
           </span>
         </div>
       </div>
 
       {/* Center: Live Stats (Stacked Vertically Matching Figma Frame 2147226420) */}
-      <div className="hidden md:flex items-center justify-center gap-10 lg:gap-16 xl:gap-20">
+      <div className="hidden md:flex items-center justify-center gap-8 lg:gap-14 xl:gap-[80px]">
         {/* Avg Prep */}
         <div className="flex flex-col items-center justify-center text-center">
           <span className="text-[18px] lg:text-[21px] font-normal text-[#989898] leading-tight">

@@ -108,7 +108,7 @@ export default function KitchenDisplayPage() {
         onOpenSettings={() => setSettingsOpen(true)}
       />
 
-      <main className="flex-1 p-5 sm:p-6 lg:p-10 max-w-[1920px] mx-auto w-full">
+      <main className="flex-1 px-5 lg:px-10 py-[27px] max-w-[1920px] mx-auto w-full">
         {filteredOrders.length === 0 ? (
           <div className="min-h-[50vh] flex flex-col items-center justify-center text-center p-8 bg-white rounded-3xl border border-gray-200/60 max-w-xl mx-auto my-12">
             <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center text-[#989898] mb-4">
@@ -128,7 +128,7 @@ export default function KitchenDisplayPage() {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-5 items-stretch">
+          <div className="flex flex-wrap 2xl:flex-nowrap items-center justify-center gap-[20px] max-w-[1840px] mx-auto">
             {filteredOrders.map((order) => (
               <OrderCard
                 key={order.id}

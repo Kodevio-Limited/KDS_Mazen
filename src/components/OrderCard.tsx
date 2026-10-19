@@ -63,15 +63,15 @@ export default function OrderCard({
 
   return (
     <div
-      className={`w-full bg-white rounded-[21px] p-5 sm:p-6 shadow-xs flex flex-col justify-between transition-all duration-300 hover:shadow-md ${
-        isPending ? 'border-2 border-dashed border-[#F59E0B]' : 'border border-gray-100/80'
+      className={`w-full max-w-[445px] h-[470px] bg-white rounded-[20.8px] pt-[22px] px-[24.64px] pb-[35px] flex flex-col justify-between transition-all duration-300 ${
+        isPending ? 'border-2 border-dashed border-[#F59E0B]' : ''
       }`}
     >
       {/* Top Header Matching Figma Frame 2147226757 */}
       <div>
-        <div className="flex items-center justify-between gap-2 pb-3 mb-3 border-b border-dashed border-[#989898]/40">
-          <div className="flex min-w-0 items-center gap-2">
-            <span className="text-[26px] sm:text-[29px] font-medium text-[#000000] tracking-tight leading-none">
+        <div className="flex items-center justify-between gap-2 mb-[24px]">
+          <div className="flex items-center gap-[14px]">
+            <span className="text-[29.11px] font-medium text-black tracking-tight leading-none">
               <bdi>{order.orderNumber}</bdi>
             </span>
             {isPending && (
@@ -79,7 +79,7 @@ export default function OrderCard({
                 {t('newTicket')}
               </span>
             )}
-            <div className="truncate px-3.5 py-1 rounded-[23px] bg-[#F1F1F1] border border-[#B9B9B9] text-[12px] sm:text-[13px] font-medium uppercase tracking-wider text-black">
+            <div className="w-[84px] h-[34px] rounded-[23px] bg-[#F1F1F1] border border-[#B9B9B9] text-[13px] font-medium uppercase tracking-wider text-black flex items-center justify-center">
               {t(`types.${order.type}`)}
               {renderTableLabel()}
             </div>
@@ -87,7 +87,7 @@ export default function OrderCard({
 
           {/* Timer Pill Matching Figma Frame 2147226756 */}
           <div
-            className={`shrink-0 px-3.5 py-1.5 rounded-[16px] border font-medium text-[13px] sm:text-[14px] flex items-center justify-center shadow-xs leading-none ${getTimerStyles()}`}
+            className={`w-[69px] h-[40px] rounded-[16px] border font-medium text-[13px] flex items-center justify-center leading-none ${getTimerStyles()}`}
           >
             <span>
               <bdi>{formatTimer(order.elapsedMinutes, order.elapsedSeconds)}</bdi>
@@ -96,38 +96,39 @@ export default function OrderCard({
         </div>
 
         {/* Items List with Food Images Matching Figma Frame 2147226754 */}
-        <div className="space-y-3">
-          {order.items.map((item, idx) => {
+        <div>
+          {order.items.slice(0, 2).map((item, idx) => {
             const displayName = isAr && item.name_ar ? item.name_ar : item.name;
             const displayModifiers = isAr && item.modifiers_ar ? item.modifiers_ar : item.modifiers;
             const displayNotes = isAr && item.notes_ar ? item.notes_ar : item.notes;
 
             return (
               <div key={item.id}>
-                <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center justify-between">
                   {/* Left: Food Box + Details */}
-                  <div className="flex items-center gap-3.5 flex-1 min-w-0">
+                  <div className="flex items-center gap-[21px] flex-1 min-w-0">
                     {/* Food Thumbnail Box Matching Figma Frame 2147225781 */}
-                    <div className="w-[84px] sm:w-[89px] h-[88px] sm:h-[94px] bg-[#F1F1F1] rounded-[7.3px] flex items-center justify-center shrink-0 overflow-hidden p-1.5">
+                    <div className="w-[89.4px] h-[97.7px] bg-[#F1F1F1] rounded-[7.28px] flex items-center justify-center shrink-0 overflow-hidden">
                       <img
                         src="/images/food-41e5d7.png"
                         alt={displayName}
-                        className="w-[66px] h-[66px] sm:w-[68px] sm:h-[68px] object-contain shrink-0"
+                        className="w-[67.58px] h-[67.58px] object-contain shrink-0"
                       />
                     </div>
 
                     {/* Details Info Matching Figma Frame 2147226750 */}
-                    <div className="flex flex-col justify-center gap-0.5 min-w-0 flex-1">
-                      <h4 className="text-[17px] sm:text-[20px] font-medium text-[#2D2F33] leading-snug whitespace-nowrap">
+                    <div className="flex flex-col gap-[10px] min-w-0 flex-1">
+                      <h4 className="text-[19.75px] font-medium text-[#2D2F33] leading-[27.66px] truncate">
                         {displayName}
                       </h4>
 
-                      {/* Modifiers Matching Figma Frame 2147226713 */}
+                      {/* Modifiers Matching Figma Frame 2147226713: Green plus + Gray modifier text */}
                       {settings.showItemModifiers && displayModifiers && displayModifiers.length > 0 && (
-                        <div className="flex flex-wrap items-center gap-x-2 text-[13px] sm:text-[15px] font-normal text-[#000000] leading-tight">
+                        <div className="flex flex-wrap items-center gap-x-[7px] leading-tight">
                           {displayModifiers.map((mod, i) => (
-                            <span key={i} className="inline-flex items-center">
-                              + {mod}
+                            <span key={i} className="inline-flex items-center gap-[3px]">
+                              <span className="text-[#2DC35F] text-[18.36px] font-normal leading-none">+</span>
+                              <span className="text-[#989898] text-[14.92px] font-normal leading-[20.88px]">{mod}</span>
                             </span>
                           ))}
                         </div>
@@ -135,29 +136,31 @@ export default function OrderCard({
 
                       {/* Notes with Note Icon Matching Figma Frame 2147226651 */}
                       {settings.showOrderNotes && displayNotes && (
-                        <div className="flex items-center gap-1.5 text-[12px] sm:text-[13px] font-normal text-[#026F4F] leading-tight mt-0.5">
+                        <div className="flex items-center gap-[3px] leading-tight">
                           <img
                             src="/images/lets-icons_order.svg"
                             alt=""
-                            className="w-[18px] h-[18px] shrink-0"
+                            className="w-[20.13px] h-[20.13px] shrink-0"
                           />
-                          <span className="whitespace-nowrap">{displayNotes}</span>
+                          <span className="text-[#026F4F] italic text-[13.09px] font-normal leading-[18.32px] truncate">
+                            {displayNotes}
+                          </span>
                         </div>
                       )}
                     </div>
                   </div>
 
                   {/* Right: Quantity Matching Figma */}
-                  <div className="shrink-0 text-end">
-                    <span className="text-[16px] sm:text-[19px] font-semibold text-[#026F4F] whitespace-nowrap">
-                      {isAr ? `الكمية: ${item.quantity}` : `Qty :${item.quantity}`}
+                  <div className="shrink-0 self-end mb-1">
+                    <span className="text-[18.71px] font-semibold text-[#026F4F] leading-[26.2px] whitespace-nowrap">
+                      {isAr ? `الكمية :${item.quantity}` : `Qty :${item.quantity}`}
                     </span>
                   </div>
                 </div>
 
                 {/* Dashed divider between items Matching Figma Vector 14 */}
-                {idx < order.items.length - 1 && (
-                  <div className="w-full border-b border-dashed border-[#989898]/50 my-2.5" />
+                {idx < Math.min(order.items.length, 2) - 1 && (
+                  <div className="w-full border-b border-dashed border-[#989898] my-[20px]" />
                 )}
               </div>
             );
@@ -166,13 +169,13 @@ export default function OrderCard({
       </div>
 
       {/* Bottom Action Button Matching Figma Frame 2147226388 */}
-      <div className="mt-5 pt-2">
+      <div className="w-full">
         {isPending && (
           <div className="flex items-center gap-2">
             <button
               onClick={() => onAcceptOrder(order.id)}
               aria-label={t('accept')}
-              className="flex h-[52px] sm:h-[54px] flex-1 items-center justify-center gap-1.5 rounded-full bg-[#16A34A] text-[15px] sm:text-[16px] font-medium text-white shadow-[0px_4px_16px_rgba(22,163,74,0.3)] transition-all hover:bg-[#15803d] active:scale-[0.98] cursor-pointer"
+              className="flex h-[54px] flex-1 items-center justify-center gap-1.5 rounded-full bg-[#16A34A] text-[16.14px] font-medium text-white shadow-[0px_4px_16px_rgba(22,163,74,0.3)] transition-all hover:bg-[#15803d] active:scale-[0.98] cursor-pointer"
             >
               <Check size={18} strokeWidth={2.5} />
               <span>{t('accept')}</span>
@@ -180,7 +183,7 @@ export default function OrderCard({
             <button
               onClick={() => onRejectOrder(order.id)}
               aria-label={t('reject')}
-              className="flex h-[52px] sm:h-[54px] flex-1 items-center justify-center gap-1.5 rounded-full border-2 border-[#E52B2B] text-[15px] sm:text-[16px] font-medium text-[#E52B2B] transition-all hover:bg-[#E52B2B] hover:text-white active:scale-[0.98] cursor-pointer"
+              className="flex h-[54px] flex-1 items-center justify-center gap-1.5 rounded-full border-2 border-[#E52B2B] text-[16.14px] font-medium text-[#E52B2B] transition-all hover:bg-[#E52B2B] hover:text-white active:scale-[0.98] cursor-pointer"
             >
               <X size={18} strokeWidth={2.5} />
               <span>{t('reject')}</span>
@@ -191,7 +194,7 @@ export default function OrderCard({
         {isPreparing && (
           <button
             onClick={() => onUpdateStatus(order.id, 'READY')}
-            className="w-full h-[52px] sm:h-[54px] bg-[#F97316] hover:bg-[#ea580c] active:scale-[0.98] text-white font-medium text-[15px] sm:text-[16px] rounded-full shadow-[0px_4px_16px_rgba(249,115,22,0.3)] transition-all flex items-center justify-center gap-2 cursor-pointer"
+            className="w-full h-[54px] bg-[#F97316] hover:bg-[#ea580c] active:scale-[0.99] text-white font-medium text-[16.14px] rounded-full shadow-[0px_4px_16px_rgba(249,115,22,0.3)] transition-all flex items-center justify-center cursor-pointer"
           >
             <span>{t('markReady')}</span>
           </button>
@@ -200,14 +203,14 @@ export default function OrderCard({
         {isReady && (
           <button
             onClick={() => onUpdateStatus(order.id, 'COMPLETED')}
-            className="w-full h-[52px] sm:h-[54px] bg-[#16A34A] hover:bg-[#15803d] active:scale-[0.98] text-white font-medium text-[15px] sm:text-[16px] rounded-full shadow-[0px_4px_16px_rgba(22,163,74,0.3)] transition-all flex items-center justify-center gap-2 cursor-pointer"
+            className="w-full h-[54px] bg-[#16A34A] hover:bg-[#15803d] active:scale-[0.99] text-white font-medium text-[16.14px] rounded-full shadow-[0px_4px_16px_rgba(22,163,74,0.3)] transition-all flex items-center justify-center cursor-pointer"
           >
             <span>{t('completeOrder')}</span>
           </button>
         )}
 
         {isCompleted && (
-          <div className="w-full h-[52px] sm:h-[54px] bg-gray-100 text-gray-400 font-medium text-[15px] sm:text-[16px] rounded-full flex items-center justify-center gap-2 border border-gray-200">
+          <div className="w-full h-[54px] bg-gray-100 text-gray-400 font-medium text-[16.14px] rounded-full flex items-center justify-center border border-gray-200">
             <span>{t('completed')}</span>
           </div>
         )}
