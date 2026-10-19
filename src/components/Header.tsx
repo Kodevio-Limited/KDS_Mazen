@@ -3,7 +3,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { LanguageToggle } from './LanguageToggle';
 
 interface HeaderProps {
   activeCount: number;
@@ -140,11 +139,6 @@ export default function Header({
               ))}
             </div>
           )}
-        </div>
-
-        {/* Language Toggle */}
-        <div className="flex shrink-0 items-center">
-          <LanguageToggle />
         </div>
 
         {/* Quick Settings Gear Matching Figma Group 8 */}
