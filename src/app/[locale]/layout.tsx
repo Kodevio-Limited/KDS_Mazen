@@ -44,8 +44,8 @@ export default async function LocaleLayout({
   const dir = locale === 'ar' ? 'rtl' : 'ltr';
 
   return (
-    <html lang={locale} dir={dir}>
-      <body className="antialiased bg-[#F2F2F2] text-[#2D2F33] min-h-screen">
+    <html lang={locale} dir={dir} suppressHydrationWarning>
+      <body className="antialiased bg-[#F2F2F2] text-[#2D2F33] min-h-screen" suppressHydrationWarning>
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
         </NextIntlClientProvider>

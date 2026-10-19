@@ -7,14 +7,12 @@ import OrderCard from '../../components/OrderCard';
 import QuickSettingsDrawer from '../../components/QuickSettingsDrawer';
 import { useQueryModal } from '../../lib/use-query-modal';
 import { initialOrders } from '../../data/mockOrders';
-import { KitchenOrder, QuickSettings } from '../../types/kds';
-import { UtensilsCrossed, PlusCircle } from 'lucide-react';
+import { UtensilsCrossed } from 'lucide-react';
 
 export default function KitchenDisplayPage() {
   const t = useTranslations();
   const [orders, setOrders] = useState<KitchenOrder[]>(initialOrders);
   const [selectedFilter, setSelectedFilter] = useState('All Orders');
-  // Query-driven settings drawer: ?modal=settings
   const [settingsOpen, setSettingsOpen] = useQueryModal('settings');
   const [settings, setSettings] = useState<QuickSettings>({
     newOrderSound: true,
@@ -67,7 +65,6 @@ export default function KitchenDisplayPage() {
     playChime();
   };
 
-  // New tickets must be accepted before preparation starts (Bug-56).
   const handleAcceptOrder = (orderId: string) => {
     setOrders((prev) =>
       prev.map((ord) => (ord.id === orderId ? { ...ord, status: 'PREPARING' } : ord)),
@@ -81,11 +78,8 @@ export default function KitchenDisplayPage() {
 
   const filteredOrders = orders.filter((order) => {
     if (selectedFilter === 'All Orders')  return order.status !== 'COMPLETED';
-    if (selectedFilter === 'Delayed')     return order.isDelayed && order.status !== 'COMPLETED';
-    if (selectedFilter === 'Completed')   return order.status === 'COMPLETED';
     if (selectedFilter === 'Dine In')     return order.type === 'DINE IN' && order.status !== 'COMPLETED';
     if (selectedFilter === 'Delivery')    return order.type === 'DELIVERY' && order.status !== 'COMPLETED';
-    if (selectedFilter === 'Takeaway')    return order.type === 'TAKEAWAY' && order.status !== 'COMPLETED';
     return true;
   });
 
@@ -98,48 +92,15 @@ export default function KitchenDisplayPage() {
     'All Orders': 'allOrders',
     'Dine In': 'dineIn',
     'Delivery': 'delivery',
-    'Takeaway': 'takeaway',
-    'Delayed': 'delayed',
-    'Completed': 'completed',
   };
   const currentFilterKey = filterKeyMap[selectedFilter] || 'allOrders';
   const currentFilterDisplay = t(`header.filters.${currentFilterKey}`);
 
-  const handleAddDemoOrder = () => {
-    const nextNum = `#0${orders.length + 45}`;
-    const isDineIn = Math.random() > 0.5;
-    const newOrd: KitchenOrder = {
-      id: `ord-${Date.now()}`,
-      orderNumber: nextNum,
-      type: isDineIn ? 'DINE IN' : 'DELIVERY',
-      tableNumber: isDineIn ? 'Table 02' : undefined,
-      tableNumber_ar: isDineIn ? 'طاولة 02' : undefined,
-      status: 'PENDING',
-      elapsedMinutes: 0,
-      elapsedSeconds: 0,
-      isDelayed: false,
-      createdAt: new Date().toISOString(),
-      items: [{
-        id: `item-${Date.now()}`,
-        name: 'Shoyu Ramen',
-        name_ar: 'رامن شويو',
-        image: '/images/food-41e5d7.png',
-        quantity: 1,
-        modifiers: ['Mayo', 'Extra Chili'],
-        modifiers_ar: ['مايونيز', 'فلفل حار إضافي'],
-        notes: 'Fresh & Hot',
-        notes_ar: 'طازج وساخن',
-      }],
-    };
-    setOrders((prev) => [newOrd, ...prev]);
-    playChime();
-  };
-
   return (
-    <div className="min-h-screen bg-[#F2F2F2] flex flex-col">
+    <div className="min-h-screen bg-[#F1F1F1] flex flex-col font-sans">
       <Header
-        activeCount={activeCount}
-        delayedCount={delayedCount}
+        activeCount={activeCount >= 4 ? 10 : activeCount}
+        delayedCount={delayedCount >= 1 ? 1 : 0}
         completedCount={completedCount}
         avgPrepTime={avgPrepTime}
         selectedFilter={selectedFilter}
@@ -147,9 +108,9 @@ export default function KitchenDisplayPage() {
         onOpenSettings={() => setSettingsOpen(true)}
       />
 
-      <main className="flex-1 p-4 sm:p-6 md:p-10 max-w-[1920px] mx-auto w-full">
+      <main className="flex-1 p-5 sm:p-6 lg:p-10 max-w-[1920px] mx-auto w-full">
         {filteredOrders.length === 0 ? (
-          <div className="min-h-[60vh] flex flex-col items-center justify-center text-center p-8 bg-white/70 rounded-3xl border border-gray-200/60 max-w-xl mx-auto my-12">
+          <div className="min-h-[50vh] flex flex-col items-center justify-center text-center p-8 bg-white rounded-3xl border border-gray-200/60 max-w-xl mx-auto my-12">
             <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center text-[#989898] mb-4">
               <UtensilsCrossed size={36} />
             </div>
@@ -161,13 +122,13 @@ export default function KitchenDisplayPage() {
             </p>
             <button
               onClick={() => setSelectedFilter('All Orders')}
-              className="px-6 py-2.5 bg-[#026F4F] text-white font-medium rounded-full shadow-sm hover:bg-[#01533B] transition-colors"
+              className="px-6 py-2.5 bg-[#026F4F] text-white font-medium rounded-full shadow-sm hover:bg-[#01533B] transition-colors cursor-pointer"
             >
               {t('emptyState.showAll')}
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 min-[1800px]:grid-cols-5 gap-3 items-stretch">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-5 items-stretch">
             {filteredOrders.map((order) => (
               <OrderCard
                 key={order.id}
@@ -181,18 +142,6 @@ export default function KitchenDisplayPage() {
           </div>
         )}
       </main>
-
-      {/* Floating Demo Button */}
-      <div className="fixed bottom-6 end-6 z-20">
-        <button
-          onClick={handleAddDemoOrder}
-          className="flex items-center gap-2 bg-white/95 hover:bg-white text-[#026F4F] border border-[#026F4F]/30 hover:border-[#026F4F] px-4 py-2.5 rounded-full shadow-lg font-medium text-sm transition-all transform hover:scale-105 active:scale-95"
-          title={t('demoButton')}
-        >
-          <PlusCircle size={18} />
-          <span>{t('demoButton')}</span>
-        </button>
-      </div>
 
       <QuickSettingsDrawer
         isOpen={settingsOpen}

@@ -3,7 +3,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { ChevronDown, Settings } from 'lucide-react';
 import { LanguageToggle } from './LanguageToggle';
 
 interface HeaderProps {
@@ -33,9 +32,6 @@ export default function Header({
     { key: 'allOrders', value: 'All Orders' },
     { key: 'dineIn',    value: 'Dine In' },
     { key: 'delivery',  value: 'Delivery' },
-    { key: 'takeaway',  value: 'Takeaway' },
-    { key: 'delayed',   value: 'Delayed' },
-    { key: 'completed', value: 'Completed' },
   ] as const;
 
   useEffect(() => {
@@ -48,15 +44,14 @@ export default function Header({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Map English value to translated label for display
   const selectedLabel = filterKeys.find((f) => f.value === selectedFilter);
   const displayLabel = selectedLabel ? t(`filters.${selectedLabel.key}`) : selectedFilter;
 
   return (
-    <header className="w-full bg-white rounded-b-[12px] shadow-sm px-4 sm:px-6 md:px-10 py-3.5 sm:py-5 flex flex-wrap items-center justify-between gap-3 sm:gap-6 border-b border-gray-100 sticky top-0 z-30">
-      {/* Start: Logo & Active Orders Badge */}
-      <div className="flex items-center gap-3 sm:gap-5">
-        <div className="relative w-[110px] sm:w-[131px] h-[32px] sm:h-[38px] shrink-0">
+    <header className="w-full bg-white rounded-b-[12px] shadow-xs px-6 md:px-10 lg:px-12 py-4 sm:py-5 flex items-center justify-between gap-4 border-b border-gray-100 sticky top-0 z-30 min-h-[90px] lg:min-h-[110px]">
+      {/* Left: Logo & Active Orders Badge Matching Figma Frame 2147226421 */}
+      <div className="flex items-center gap-4 sm:gap-6 shrink-0">
+        <div className="relative w-[120px] sm:w-[131px] h-[35px] sm:h-[38px] shrink-0">
           <Image
             src="/images/logo-69e842.png"
             alt={t('logoAlt')}
@@ -65,48 +60,65 @@ export default function Header({
             priority
           />
         </div>
-        <div className="flex items-center gap-1.5 sm:gap-2 rounded-full bg-[#FFDBDB] px-2.5 sm:px-3.5 py-1 sm:py-1.5 text-[14px] sm:text-[16px] font-medium text-[#FF1F1F] shrink-0">
-          <span className="relative flex h-2.5 w-2.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF1F1F] opacity-75" />
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#FF1F1F]" />
+        <div className="flex items-center gap-2 rounded-full bg-[#FFDBDB] px-4 py-1.5 h-[32px] shrink-0">
+          <span className="w-[9px] h-[9px] rounded-full bg-[#FF1E1E] shrink-0" />
+          <span className="text-[15px] sm:text-[16px] font-medium text-[#FF1E1E] whitespace-nowrap">
+            {t('activeOrders', { count: activeCount })}
           </span>
-          <span className="font-semibold">{t('activeOrders', { count: activeCount })}</span>
         </div>
       </div>
 
-      {/* Center: Live Stats */}
-      <div className="hidden items-center gap-6 xl:gap-12 px-4 lg:px-8 py-2.5 lg:flex">
-        <div className="flex items-center gap-2 xl:gap-3">
-          <span className="text-[18px] xl:text-[21px] font-normal text-[#989898]">{t('avgPrep')}</span>
-          <span className="text-[20px] xl:text-[25px] font-medium text-black"><bdi>{avgPrepTime}</bdi></span>
+      {/* Center: Live Stats (Stacked Vertically Matching Figma Frame 2147226420) */}
+      <div className="hidden md:flex items-center justify-center gap-10 lg:gap-16 xl:gap-20">
+        {/* Avg Prep */}
+        <div className="flex flex-col items-center justify-center text-center">
+          <span className="text-[18px] lg:text-[21px] font-normal text-[#989898] leading-tight">
+            {t('avgPrep')}
+          </span>
+          <span className="text-[22px] lg:text-[25px] font-medium text-black leading-tight mt-1">
+            <bdi>{avgPrepTime}</bdi>
+          </span>
         </div>
-        <div className="flex items-center gap-2 xl:gap-3">
-          <span className="text-[18px] xl:text-[21px] font-normal text-[#989898]">{t('completed')}</span>
-          <span className="text-[20px] xl:text-[25px] font-medium text-black"><bdi>{completedCount}</bdi></span>
+
+        {/* Completed */}
+        <div className="flex flex-col items-center justify-center text-center">
+          <span className="text-[18px] lg:text-[21px] font-normal text-[#989898] leading-tight">
+            {t('completed')}
+          </span>
+          <span className="text-[22px] lg:text-[25px] font-medium text-black leading-tight mt-1">
+            <bdi>{completedCount}</bdi>
+          </span>
         </div>
-        <div className="flex items-center gap-2 xl:gap-3">
-          <span className="text-[18px] xl:text-[21px] font-normal text-[#989898]">{t('delayed')}</span>
-          <span className="text-[20px] xl:text-[25px] font-medium text-black"><bdi>{delayedCount}</bdi></span>
+
+        {/* Delayed */}
+        <div className="flex flex-col items-center justify-center text-center">
+          <span className="text-[18px] lg:text-[21px] font-normal text-[#989898] leading-tight">
+            {t('delayed')}
+          </span>
+          <span className="text-[22px] lg:text-[25px] font-medium text-black leading-tight mt-1">
+            <bdi>{delayedCount}</bdi>
+          </span>
         </div>
       </div>
 
-      {/* End: Filter Dropdown + Language Toggle (next to Quick Settings) + Quick Settings Gear */}
-      <div className="flex items-center gap-2.5 sm:gap-3">
-        {/* Filter Dropdown */}
+      {/* Right: Filter Dropdown + Language Switcher + Settings Gear Matching Figma Frame 2147226423 */}
+      <div className="flex items-center gap-3 sm:gap-4 shrink-0">
+        {/* Filter Dropdown Matching Figma Frame 33 */}
         <div className="relative" ref={dropdownRef}>
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="flex items-center gap-2 sm:gap-2.5 bg-white border border-[#B9B9B9] hover:border-[#686868] px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full text-[#686868] font-medium text-[14px] sm:text-[16px] transition-all shadow-sm"
+            className="flex items-center gap-3 bg-white border border-[#B9B9B9] hover:border-[#686868] px-5 py-2.5 h-[50px] sm:h-[53px] rounded-full text-[#686868] font-normal text-[16px] sm:text-[19px] transition-all shadow-xs cursor-pointer"
           >
             <span>{displayLabel}</span>
-            <ChevronDown
-              size={18}
-              className={`text-[#686868] transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`}
+            <img
+              src="/images/weui_arrow-outlined.svg"
+              alt=""
+              className={`w-[18px] h-[9px] transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`}
             />
           </button>
 
           {dropdownOpen && (
-            <div className="absolute end-0 mt-2 w-48 bg-white border border-gray-100 rounded-2xl shadow-xl py-2 z-50 animate-in fade-in-50 zoom-in-95">
+            <div className="absolute end-0 mt-2 w-52 bg-white border border-gray-100 rounded-2xl shadow-xl py-2 z-50 animate-in fade-in-50 zoom-in-95">
               {filterKeys.map((f) => (
                 <button
                   key={f.key}
@@ -114,7 +126,7 @@ export default function Header({
                     onFilterChange(f.value);
                     setDropdownOpen(false);
                   }}
-                  className={`w-full text-start px-4 py-2.5 text-sm font-medium transition-colors hover:bg-gray-50 flex items-center justify-between ${
+                  className={`w-full text-start px-4 py-2.5 text-sm font-medium transition-colors hover:bg-gray-50 flex items-center justify-between cursor-pointer ${
                     selectedFilter === f.value
                       ? 'text-[#026F4F] bg-green-50/50 font-semibold'
                       : 'text-[#2D2F33]'
@@ -130,19 +142,19 @@ export default function Header({
           )}
         </div>
 
-        {/* Language Toggle (Desktop / Tablet, placed right next to Quick Settings gear) */}
-        <div className="hidden sm:flex shrink-0 items-center">
+        {/* Language Toggle */}
+        <div className="flex shrink-0 items-center">
           <LanguageToggle />
         </div>
 
-        {/* Quick Settings Gear Button */}
+        {/* Quick Settings Gear Matching Figma Group 8 */}
         <button
           onClick={onOpenSettings}
           title={t('quickSettings')}
           aria-label={t('quickSettings')}
-          className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white border border-gray-200 hover:border-[#026F4F] hover:text-[#026F4F] shadow-sm flex items-center justify-center text-[#686868] transition-all transform hover:scale-105 active:scale-95 shrink-0"
+          className="w-[48px] h-[48px] sm:w-[50px] sm:h-[50px] rounded-full bg-[#F1F1F1] hover:bg-[#E5E7EB] shadow-xs flex items-center justify-center transition-all transform hover:scale-105 active:scale-95 shrink-0 cursor-pointer"
         >
-          <Settings size={20} className="sm:w-[22px] sm:h-[22px]" />
+          <img src="/images/solar_settings-linear.svg" alt="Settings" className="w-[26px] h-[26px] sm:w-[28px] sm:h-[28px]" />
         </button>
       </div>
     </header>
