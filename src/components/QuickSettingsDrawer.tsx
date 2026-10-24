@@ -28,6 +28,16 @@ export default function QuickSettingsDrawer({
     setLocalSettings(settings);
   }, [settings, isOpen]);
 
+  // The drawer covers the board; page behind it must not scroll.
+  React.useEffect(() => {
+    if (!isOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   const handleSave = () => {
