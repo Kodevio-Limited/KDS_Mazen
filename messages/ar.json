@@ -28,7 +28,7 @@
   },
   "orderCard": {
  "qty": "الكمية: {qty}",
- "markReady": "تحديد جاهز",
+ "markReady": "جاهز",
  "completeOrder": "إتمام الطلب",
  "completed": "مكتمل",
  "accept": "قبول",

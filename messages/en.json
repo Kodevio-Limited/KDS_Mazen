@@ -28,7 +28,7 @@
   },
   "orderCard": {
  "qty": "Qty: {qty}",
- "markReady": "Mark Ready",
+ "markReady": "Ready",
  "completeOrder": "Complete Order",
  "completed": "Completed",
  "accept": "Accept",
