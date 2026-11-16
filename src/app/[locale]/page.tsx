@@ -9,6 +9,7 @@ import { useQueryModal } from '../../lib/use-query-modal';
 import { initialOrders } from '../../data/mockOrders';
 import { KitchenOrder, QuickSettings } from '../../types/kds';
 import { UtensilsCrossed, PlusCircle } from 'lucide-react';
+import { kdsApi } from '../../lib/kdsApi';
 
 export default function KitchenDisplayPage() {
   const t = useTranslations();
@@ -60,10 +61,34 @@ export default function KitchenDisplayPage() {
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    // 1. Initial live fetch from backend
+    kdsApi.fetchQueue('branch-1').then((liveOrders) => {
+      if (liveOrders && liveOrders.length > 0) {
+        setOrders(liveOrders);
+      }
+    });
+
+    // 2. Real-time WebSocket connection
+    const ws = kdsApi.connectWebSocket('branch-1', (msg) => {
+      if (msg.event === 'new_order' || msg.event === 'payment_completed') {
+        playChime();
+        kdsApi.fetchQueue('branch-1').then((liveOrders) => {
+          if (liveOrders && liveOrders.length > 0) setOrders(liveOrders);
+        });
+      }
+    });
+
+    return () => {
+      if (ws) ws.close();
+    };
+  }, [playChime]);
+
   const handleUpdateStatus = (orderId: string, newStatus: 'PREPARING' | 'READY' | 'COMPLETED') => {
     setOrders((prev) =>
       prev.map((ord) => (ord.id === orderId ? { ...ord, status: newStatus } : ord)),
     );
+    kdsApi.bumpTicket(orderId, newStatus === 'READY' ? 'ready' : newStatus === 'COMPLETED' ? 'served' : 'preparing');
     playChime();
   };
 
@@ -72,6 +97,7 @@ export default function KitchenDisplayPage() {
     setOrders((prev) =>
       prev.map((ord) => (ord.id === orderId ? { ...ord, status: 'PREPARING' } : ord)),
     );
+    kdsApi.bumpTicket(orderId, 'preparing');
     playChime();
   };
 
